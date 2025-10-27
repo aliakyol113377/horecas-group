@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: { lng: string } }): Promise<Metadata> {
   const title = 'Horecas Group — Премиальная посуда для HoReCa'
   const description = 'Магазин профессиональной посуды для ресторанов, кафе и отелей. Прямые поставки, быстрая доставка по Казахстану и цены в тенге (₸).'
+  const lng = params.lng || 'ru'
   return {
     title,
     description,
@@ -21,6 +22,9 @@ export async function generateMetadata({ params }: { params: { lng: string } }):
       card: 'summary_large_image',
       title,
       description
+    },
+    alternates: {
+      canonical: `/${lng}`
     }
   }
 }
