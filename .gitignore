@@ -1,0 +1,36 @@
+# Dependencies
+/node_modules
+
+# Builds
+/.next
+/out
+/.vercel
+/dist
+
+# Artifacts
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# Generated
+/public/imported
+/logs
+tsconfig.tsbuildinfo
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Prisma
+/prisma/*.db
+/prisma/*.sqlite
+/prisma/migrations
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

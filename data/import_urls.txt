@@ -1,0 +1,3 @@
+# One URL per line (lines starting with # are ignored)
+https://complex-bar.kz/product/blyudo-krugloe-s-bortom-kunstwerk-03022321/
+https://complex-bar.kz/product/tarelka-melkaya-borisovskaya-keramika-03013287/

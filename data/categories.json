@@ -1,0 +1,207 @@
+[
+  {
+    "slug": "stolovaya-posuda",
+    "name": "Главная",
+    "parentSlug": null
+  },
+  {
+    "slug": "stolovaya-posuda-i-predmety-servirovki",
+    "name": "Столовая посуда и предметы сервировки",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "blyuda-tarelki",
+    "name": "Блюда, тарелки",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "tarelki-glubokie",
+    "name": "Тарелки глубокие",
+    "parentSlug": "blyuda-tarelki"
+  },
+  {
+    "slug": "tarelki-obedennye",
+    "name": "Тарелки обеденные",
+    "parentSlug": "blyuda-tarelki"
+  },
+  {
+    "slug": "salatniki",
+    "name": "Салатники",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "salatniki-porczionnye",
+    "name": "Салатники порционные",
+    "parentSlug": "salatniki"
+  },
+  {
+    "slug": "arcoroc",
+    "name": "Салатники порционные Arcoroc",
+    "parentSlug": "salatniki-porczionnye"
+  },
+  {
+    "slug": "borisovskaya-keramika",
+    "name": "Салатники порционные Борисовская Керамика",
+    "parentSlug": "salatniki-porczionnye"
+  },
+  {
+    "slug": "blyudca",
+    "name": "Блюдца и розетки",
+    "parentSlug": "blyuda-tarelki"
+  },
+  {
+    "slug": "kunstwerk",
+    "name": "Салатники порционные Kunstwerk",
+    "parentSlug": "salatniki-porczionnye"
+  },
+  {
+    "slug": "kremanki",
+    "name": "Креманки",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "salatniki-servirovochnye",
+    "name": "Салатники сервировочные",
+    "parentSlug": "salatniki"
+  },
+  {
+    "slug": "chashi-supovye",
+    "name": "Чаши суповые",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "chashi-bulonnye",
+    "name": "Чаши бульонные",
+    "parentSlug": "chashi-supovye"
+  },
+  {
+    "slug": "posuda-dlya-napitkov",
+    "name": "Посуда для напитков",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "stakany",
+    "name": "Стаканы",
+    "parentSlug": "posuda-dlya-napitkov"
+  },
+  {
+    "slug": "old-feshny",
+    "name": "Олд фэшны",
+    "parentSlug": "stakany"
+  },
+  {
+    "slug": "hayboly",
+    "name": "Хайболы",
+    "parentSlug": "stakany"
+  },
+  {
+    "slug": "vspomogatelnyy-inventar",
+    "name": "Вспомогательный инвентарь",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "konteynery-i-emkosti-dlya-hraneniya",
+    "name": "Контейнеры и емкости для хранения",
+    "parentSlug": "vspomogatelnyy-inventar"
+  },
+  {
+    "slug": "banki",
+    "name": "Банки",
+    "parentSlug": "konteynery-i-emkosti-dlya-hraneniya"
+  },
+  {
+    "slug": "predmety-servirovki",
+    "name": "Предметы сервировки",
+    "parentSlug": "stolovaya-posuda-i-predmety-servirovki"
+  },
+  {
+    "slug": "pepelnicy",
+    "name": "Пепельницы",
+    "parentSlug": "predmety-servirovki"
+  },
+  {
+    "slug": "stopki-i-ryumki",
+    "name": "Стопки и рюмки",
+    "parentSlug": "posuda-dlya-napitkov"
+  },
+  {
+    "slug": "ryumki",
+    "name": "Рюмки",
+    "parentSlug": "stopki-i-ryumki"
+  },
+  {
+    "slug": "barnyy-inventar",
+    "name": "Барный инвентарь",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "barnye-aksessuary-dlya-izmereniya",
+    "name": "Барные аксессуары для измерения",
+    "parentSlug": "barnyy-inventar"
+  },
+  {
+    "slug": "geyzery-dozatory",
+    "name": "Гейзеры, дозаторы",
+    "parentSlug": "barnye-aksessuary-dlya-izmereniya"
+  },
+  {
+    "slug": "stopki",
+    "name": "Стопки",
+    "parentSlug": "stopki-i-ryumki"
+  },
+  {
+    "slug": "mernye-emkosti",
+    "name": "Мерные емкости",
+    "parentSlug": "barnye-aksessuary-dlya-izmereniya"
+  },
+  {
+    "slug": "menzurki",
+    "name": "Мензурки",
+    "parentSlug": "mernye-emkosti"
+  },
+  {
+    "slug": "siropy-i-produkty",
+    "name": "Сиропы и продукты",
+    "parentSlug": "stolovaya-posuda"
+  },
+  {
+    "slug": "siropy-i-koncentraty",
+    "name": "Сиропы",
+    "parentSlug": "siropy-i-produkty"
+  },
+  {
+    "slug": "desertnye-siropy",
+    "name": "Десертные сиропы",
+    "parentSlug": "siropy-i-koncentraty"
+  },
+  {
+    "slug": "pinch-and-drop",
+    "name": "Десертные сиропы Pinch&Drop",
+    "parentSlug": "desertnye-siropy"
+  },
+  {
+    "slug": "orehovye-siropy",
+    "name": "Ореховые сиропы",
+    "parentSlug": "siropy-i-koncentraty"
+  },
+  {
+    "slug": "yagodnye-siropy",
+    "name": "Ягодные сиропы",
+    "parentSlug": "siropy-i-koncentraty"
+  },
+  {
+    "slug": "stolovye-pribory",
+    "name": "Столовые приборы",
+    "parentSlug": "stolovaya-posuda-i-predmety-servirovki"
+  },
+  {
+    "slug": "pribory-dlya-chaepitiya",
+    "name": "Приборы для чая и кофе",
+    "parentSlug": "stolovye-pribory"
+  },
+  {
+    "slug": "lojki-chaynye",
+    "name": "Ложки чайные",
+    "parentSlug": "pribory-dlya-chaepitiya"
+  }
+]

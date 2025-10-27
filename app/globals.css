@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+body {
+  @apply bg-white text-gray-900 antialiased;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-md bg-amber-400 text-gray-900 font-semibold px-5 py-3 shadow hover:shadow-md transition;
+}
+
+.card {
+  @apply rounded-xl bg-white shadow-sm border border-gray-100;
+}
+
+.card-hover {
+  @apply hover:shadow-md hover:border-gray-200 transition;
+}

@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  parentId  String?
+  parent    Category?  @relation("CategoryToChildren", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryToChildren")
+  products  Product[]
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  products Product[]
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+}
+
+model Attribute {
+  id    String @id @default(cuid())
+  name  String
+  slug  String @unique
+  values ProductAttribute[]
+}
+
+model ProductAttribute {
+  id          String    @id @default(cuid())
+  product     Product   @relation(fields: [productId], references: [id])
+  productId   String
+  attribute   Attribute @relation(fields: [attributeId], references: [id])
+  attributeId String
+  value       String
+}
+
+model Price {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model SupplierRef {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @unique
+  url       String  @unique
+  sku       String?
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  phone     String
+  kind      String
+  createdAt DateTime @default(now())
+  product   Product? @relation(name: "LeadToProduct", fields: [productId], references: [id])
+  productId String?
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  phone     String
+  total     Int
+  createdAt DateTime @default(now())
+}
+
+model ImportLog {
+  id        String   @id @default(cuid())
+  url       String
+  status    String
+  message   String?
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id          String             @id @default(cuid())
+  name        String
+  slug        String             @unique
+  description String?
+  brand       Brand?             @relation(fields: [brandId], references: [id])
+  brandId     String?
+  categories  Category[]
+  attributes  ProductAttribute[]
+  prices      Price[]
+  inventory   Inventory[]
+  media       Media[]
+  supplierRef SupplierRef?
+  leads       Lead[]            @relation("LeadToProduct")
+  material    String?
+  color       String?
+  popularity  Int                @default(0)
+  isNew       Boolean            @default(false)
+  createdAt   DateTime           @default(now())
+}
