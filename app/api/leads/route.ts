@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '../../../server/prisma'
 import fs from 'node:fs'
 import path from 'node:path'
+
+export const dynamic = 'force-dynamic'
 
 export async function POST(req: Request) {
   const body = await req.json()
@@ -11,6 +12,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Некорректный телефон' }, { status: 400 })
   }
   try {
+    // Try DB first, importing prisma lazily to avoid build-time init
+    const { prisma } = await import('../../../server/prisma')
     const lead = await prisma.lead.create({ data: { phone, kind } })
     return NextResponse.json({ ok: true, id: lead.id })
   } catch (e) {

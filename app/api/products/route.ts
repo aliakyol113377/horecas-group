@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '../../../server/prisma'
 import fs from 'node:fs'
 import path from 'node:path'
 import { markStart, logIfSlow } from '../../../lib/timing'
+
+// Ensure this handler is always dynamic; avoid static optimization touching DB during build
+export const dynamic = 'force-dynamic'
 
 // Simple in-memory cache with TTL to avoid repeated FS/DB work in file-DB mode
 type CacheEntry = { ts: number; data: any }
@@ -63,6 +65,8 @@ export async function GET(req: Request) {
   }
   if (!useFile) {
     try {
+      // Lazy import prisma only when DB mode is actually used
+      const { prisma } = await import('../../../server/prisma')
       const [total, items] = await Promise.all([
         prisma.product.count({ where }),
         prisma.product.findMany({

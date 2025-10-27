@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next'
-import { prisma } from '../server/prisma'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -13,6 +12,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
   // Try include product pages if DB is reachable
   try {
+    // Lazy import prisma to avoid build-time initialization failures on Vercel
+    const { prisma } = await import('../server/prisma')
     const products = await prisma.product.findMany({ select: { slug: true }, take: 1000, orderBy: { createdAt: 'desc' } })
     for (const p of products) {
       entries.push({ url: `${base}/ru/product/${p.slug}`, lastModified: new Date() })

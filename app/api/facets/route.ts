@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 import fs from 'node:fs'
 import path from 'node:path'
-import { prisma } from '../../../server/prisma'
 import { markStart, logIfSlow } from '../../../lib/timing'
+
+// Force runtime evaluation; avoid any static optimization that could run DB code at build
+export const dynamic = 'force-dynamic'
 
 // In-memory cache for facets to reduce FS/DB work
 type CacheEntry = { ts: number; data: any }
@@ -103,6 +105,8 @@ export async function GET() {
   const useFile = (process.env.USE_FILE_DB || 'false').toLowerCase() === 'true'
   if (!useFile) {
     try {
+      // Lazy-load prisma only if DB mode is enabled to prevent build-time prisma init on Vercel
+      const { prisma } = await import('../../../server/prisma')
       // Try to compute facets from DB where possible
       const [categories, brands, materials] = await Promise.all([
         prisma.category.findMany({ select: { slug: true, name: true } }),
