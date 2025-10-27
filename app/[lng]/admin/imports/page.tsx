@@ -1,11 +1,12 @@
-import { prisma } from '../../../../server/prisma'
 import fs from 'node:fs'
 import path from 'node:path'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export default async function AdminImportsPage() {
   try {
+    const { prisma } = await import('../../../../server/prisma')
     const logs = await prisma.importLog.findMany({ orderBy: { createdAt: 'desc' }, take: 50 })
     return (
       <div className="container py-10">

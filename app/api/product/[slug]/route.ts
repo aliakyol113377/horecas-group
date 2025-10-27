@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '../../../../server/prisma'
 import fs from 'node:fs'
 import path from 'node:path'
 import { markStart, logIfSlow } from '../../../../lib/timing'
+
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 // Simple per-slug cache
 const CACHE = new Map<string, { ts: number; data: any }>()
@@ -29,6 +31,7 @@ export async function GET(_req: Request, { params }: { params: { slug: string } 
   const useFile = (process.env.USE_FILE_DB || 'false').toLowerCase() === 'true'
   if (!useFile) {
     try {
+      const { prisma } = await import('../../../../server/prisma')
       const p = await prisma.product.findUnique({
         where: { slug },
         include: { brand: true, media: true, prices: { orderBy: { createdAt: 'desc' }, take: 1 } }

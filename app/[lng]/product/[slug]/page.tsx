@@ -1,4 +1,3 @@
-import { prisma } from '../../../../server/prisma'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -13,6 +12,7 @@ const AddToCart = nextDynamic(() => import('../../../../components/AddToCart'), 
 import Script from 'next/script'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 // AddToCart moved to client component in components/AddToCart.tsx
 
@@ -73,6 +73,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   if (!useFile) {
     try {
+      const { prisma } = await import('../../../../server/prisma')
       p = await prisma.product.findUnique({
         where: { slug: params.slug },
         include: {
@@ -152,6 +153,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   let availability = 'https://schema.org/OutOfStock'
   if (fromDb && p) {
     try {
+      const { prisma } = await import('../../../../server/prisma')
       const invAgg = await prisma.inventory.aggregate({ _sum: { quantity: true }, where: { productId: p.id } })
       const totalQty = invAgg._sum.quantity ?? 0
       availability = 'https://schema.org/' + (totalQty > 0 ? 'InStock' : 'OutOfStock')
