@@ -50,8 +50,8 @@ export default function HomePage() {
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
             Horecas Group — посуда и инвентарь для HoReCa
           </h1>
-          <p className="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
-            Реальные товары, аккуратные карточки и быстрые ответы. Доставляем по Казахстану и помогаем подобрать оптимальные решения для вашего бизнеса.
+          <p className="mt-4 text-lg text-gray-900 max-w-3xl mx-auto">
+            качественные товары, быстрые ответы. Доставляем по Казахстану и помогаем подобрать оптимальные решения для ваших нужд.
           </p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Link className="btn-primary" href={`/${lng}/catalog`}>Перейти в каталог</Link>
