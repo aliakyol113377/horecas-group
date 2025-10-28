@@ -1,5 +1,5 @@
 "use client"
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 type Facets = {
   categories?: { slug: string; name?: string; count?: number }[]
@@ -39,6 +39,59 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
     const rest = all.filter(c => !seen.has(c.slug))
     return [...curated, ...rest]
   })()
+
+  // Color name → swatch color map (Russian names), fallback to gray
+  const colorSwatch = useMemo(() => {
+    const m: Record<string, string> = {
+      'прозрачный': 'transparent',
+      'черный': '#111827',
+      'белый': '#ffffff',
+      'бордовый': '#800020',
+      'красный': '#ef4444',
+      'синий': '#3b82f6',
+      'голубой': '#60a5fa',
+      'бирюзовый': '#14b8a6',
+      'фиолетовый': '#8b5cf6',
+      'розовый': '#ec4899',
+      'оранжевый': '#f97316',
+      'желтый': '#f59e0b',
+      'зеленый': '#22c55e',
+      'дымчатый': '#6b7280',
+      'янтарный': '#d97706',
+      'золотистый': '#d4af37',
+      'серебристый': '#c0c0c0',
+      'бронзовый': '#cd7f32',
+      'медный': '#b87333',
+      'графитовый': '#374151',
+      'серый': '#9ca3af',
+      'бежевый': '#f5f5dc',
+      'коричневый': '#8b4513',
+      'кремовый': '#fffdd0'
+    }
+    return m
+  }, [])
+
+  const renderColorChip = (name: string, count?: number) => {
+    const key = (name || '').toString().trim().toLowerCase()
+    const isSelected = (query.color || '').toLowerCase() === key
+    const bg = colorSwatch[key] ?? '#e5e7eb'
+    const isTransparent = bg === 'transparent'
+    return (
+      <button
+        key={name}
+        onClick={() => set('color', isSelected ? '' : name)}
+        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition whitespace-nowrap ${isSelected ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50'}`}
+        aria-pressed={isSelected}
+        title={name}
+      >
+        <span
+          className="inline-block h-4 w-4 rounded-full border border-gray-300"
+          style={isTransparent ? { backgroundImage: 'linear-gradient(45deg,#f3f4f6 25%,transparent 25%,transparent 50%,#f3f4f6 50%,#f3f4f6 75%,transparent 75%,transparent)', backgroundSize: '6px 6px' } : { backgroundColor: bg }}
+        />
+        <span>{name}{typeof count === 'number' && count > 0 ? ` (${count})` : ''}</span>
+      </button>
+    )
+  }
 
   if (vertical) {
     return (
@@ -85,16 +138,15 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
         {/* Бренд скрыт по требованию: вкладка не отображается */}
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-gray-700">Цвет</label>
-          <select
-            value={query.color || ''}
-            onChange={(e) => set('color', e.target.value)}
-            className={`w-full rounded-md border bg-white px-3 py-2 text-sm ${query.color ? 'border-amber-400 ring-2 ring-amber-200' : 'border-gray-200'}`}
-          >
-            <option value="">Все цвета</option>
-            {facets?.colors?.map((c) => (
-              <option key={c.name} value={c.name}>{c.name}{c.count ? ` (${c.count})` : ''}</option>
-            ))}
-          </select>
+          <div className="flex flex-wrap gap-2 max-h-48 overflow-auto pr-1">
+            <button
+              onClick={() => set('color', '')}
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm ${!query.color ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50'}`}
+            >
+              Все цвета
+            </button>
+            {(facets?.colors || []).map((c: any) => renderColorChip(c.name, c.count))}
+          </div>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-gray-700">Цена</label>
@@ -192,17 +244,16 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
         </select>
       </div>
       {/* Бренд скрыт по требованию: вкладка не отображается */}
-      <div>
-        <select
-          value={query.color || ''}
-          onChange={(e) => set('color', e.target.value)}
-          className={`w-full rounded-md border bg-white px-3 py-2 text-sm ${query.color ? 'border-amber-400 ring-2 ring-amber-200' : 'border-gray-200'}`}
-        >
-          <option value="">Все цвета</option>
-          {facets?.colors?.map((c) => (
-            <option key={c.name} value={c.name}>{c.name}{c.count ? ` (${c.count})` : ''}</option>
-          ))}
-        </select>
+      <div className="col-span-2 lg:col-span-2">
+        <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap py-1">
+          <button
+            onClick={() => set('color', '')}
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm ${!query.color ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50'}`}
+          >
+            Все цвета
+          </button>
+          {(facets?.colors || []).map((c: any) => renderColorChip(c.name, c.count))}
+        </div>
       </div>
       <div className="flex items-center gap-2">
         <input
