@@ -43,7 +43,8 @@ export async function GET(req: Request) {
   const where: any = {}
   if (inStock === 'true') where.inventory = { some: { quantity: { gt: 0 } } }
   if (category) where.categories = { some: { slug: category } }
-  if (material) where.material = { equals: material }
+  if (material) where.material = { equals: material, mode: 'insensitive' as any }
+  if (color) where.color = { equals: color, mode: 'insensitive' as any }
   if (q) where.OR = [
     { name: { contains: q, mode: 'insensitive' } },
     { description: { contains: q, mode: 'insensitive' } }
@@ -54,6 +55,8 @@ export async function GET(req: Request) {
   if (sort === 'new') orderBy = { createdAt: 'desc' }
   if (sort === 'price_asc') orderBy = { prices: { _min: { amount: 'asc' } } }
   if (sort === 'price_desc') orderBy = { prices: { _max: { amount: 'desc' } } }
+  if (sort === 'material_asc') orderBy = { material: 'asc' }
+  if (sort === 'color_asc') orderBy = { color: 'asc' }
 
   const useFile = (process.env.USE_FILE_DB || 'false').toLowerCase() === 'true'
 
@@ -268,6 +271,16 @@ export async function GET(req: Request) {
     if (sort === 'new') filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
     if (sort === 'price_asc') filtered.sort((a, b) => (Number(a.price) || Infinity) - (Number(b.price) || Infinity))
     if (sort === 'price_desc') filtered.sort((a, b) => (Number(b.price) || -1) - (Number(a.price) || -1))
+    if (sort === 'material_asc') filtered.sort((a, b) => {
+      const am = mapMaterial(String(a.material || (a.specs?.['Материал'] || a.specs?.['материал'] || a.specs?.['Material'] || '')))
+      const bm = mapMaterial(String(b.material || (b.specs?.['Материал'] || b.specs?.['материал'] || b.specs?.['Material'] || '')))
+      return am.localeCompare(bm, 'ru')
+    })
+    if (sort === 'color_asc') filtered.sort((a, b) => {
+      const ac = mapColor(String(a.color || (a.specs?.['Цвет'] || a.specs?.['цвет'] || a.specs?.['Color'] || '')))
+      const bc = mapColor(String(b.color || (b.specs?.['Цвет'] || b.specs?.['цвет'] || b.specs?.['Color'] || '')))
+      return ac.localeCompare(bc, 'ru')
+    })
     // Custom default ordering: plates first, then a stable daily shuffle of the rest
     if ((!sort || sort === 'popular') && !category) {
       const isPlate = (p: any) => {

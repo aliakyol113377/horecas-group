@@ -130,6 +130,8 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
             <option value="new">Новинки</option>
             <option value="price_asc">Цена ↑</option>
             <option value="price_desc">Цена ↓</option>
+            <option value="material_asc">Материал A→Я</option>
+            <option value="color_asc">Цвет A→Я</option>
           </select>
         </div>
         <div className="flex items-center justify-between">
@@ -232,6 +234,8 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
           <option value="new">Новинки</option>
           <option value="price_asc">Цена ↑</option>
           <option value="price_desc">Цена ↓</option>
+          <option value="material_asc">Материал A→Я</option>
+          <option value="color_asc">Цвет A→Я</option>
         </select>
       </div>
       <div className="flex items-center gap-2">
