@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
@@ -28,10 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/logo-horecas.png" />
         <link rel="apple-touch-icon" href="/logo-horecas.png" />
-        {/* Google AdSense global script (loads on every page). Using env fallback to provided client id. */}
-        <Script
-          id="adsense-global"
-          strategy="afterInteractive"
+        {/* Google AdSense global script (must be in <head> for verification). */}
+        <script
+          async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(process.env.NEXT_PUBLIC_ADSENSE_CLIENT || 'ca-pub-8606447842195048')}`}
           crossOrigin="anonymous"
         />
