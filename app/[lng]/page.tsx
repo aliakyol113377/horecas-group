@@ -46,16 +46,16 @@ export default function HomePage() {
   return (
     <div className="container py-12">
       <section className="text-center space-y-6">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl border border-white/10 bg-gradient-to-br from-amber-500/[0.06] via-rose-500/[0.05] to-transparent p-8">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl border border-gray-100 bg-gradient-to-br from-amber-500/[0.06] via-rose-500/[0.05] to-transparent p-8">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
             Horecas Group — посуда и инвентарь для HoReCa
           </h1>
-          <p className="mt-4 text-lg text-white/80 max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
             Реальные товары, аккуратные карточки и быстрые ответы. Доставляем по Казахстану и помогаем подобрать оптимальные решения для вашего бизнеса.
           </p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Link className="btn-primary" href={`/${lng}/catalog`}>Перейти в каталог</Link>
-            <Link className="inline-flex items-center justify-center rounded-md border border-white/20 text-white px-5 py-3 hover:bg-white/5 transition" href={`/${lng}/about`}>О компании</Link>
+            <Link className="inline-flex items-center justify-center rounded-md border border-gray-300 text-gray-900 px-5 py-3 hover:bg-gray-50 transition" href={`/${lng}/about`}>О компании</Link>
           </div>
         </motion.div>
       </section>
