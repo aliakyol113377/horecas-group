@@ -12,12 +12,23 @@ export default function HomePage() {
   const lng = pathname?.split('/').filter(Boolean)[0] || 'ru'
   const [loading, setLoading] = useState(true)
   const [items, setItems] = useState<any[]>([])
+  const categories: { label: string; slug: string }[] = [
+    { label: 'Тарелки', slug: 'blyuda-tarelki' },
+    { label: 'Стаканы', slug: 'stakany' },
+    { label: 'Кружки', slug: 'kruzhki' },
+    { label: 'Столовые приборы', slug: 'stolovye-pribory' },
+    { label: 'Бокалы', slug: 'bokaly' },
+    { label: 'Аксессуары', slug: 'vspomogatelnyy-inventar' }
+  ]
+  const [selected, setSelected] = useState<string>('')
 
   useEffect(() => {
     let cancelled = false
     async function load() {
       try {
-        const res = await fetch(`/api/products?pageSize=8&sort=popular`, { cache: 'no-store' })
+        const base = `/api/products?pageSize=8&sort=popular`
+        const url = selected ? `${base}&category=${encodeURIComponent(selected)}` : base
+        const res = await fetch(url, { cache: 'no-store' })
         const data = await res.json()
         if (!cancelled) {
           setItems(Array.isArray(data?.items) ? data.items : [])
@@ -28,9 +39,9 @@ export default function HomePage() {
         if (!cancelled) setLoading(false)
       }
     }
-    load()
+    setLoading(true); load()
     return () => { cancelled = true }
-  }, [])
+  }, [selected])
 
   return (
     <div className="container py-12">
@@ -51,18 +62,22 @@ export default function HomePage() {
 
       {/* Быстрые ориентиры по категориям */}
       <section className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {["Тарелки","Стаканы","Кружки","Столовые приборы","Бокалы","Аксессуары"].map((cat) => (
-          <div key={cat} className="rounded-lg border border-white/10 bg-white/5 p-4 text-center font-medium hover:bg-white/10 transition cursor-default">
-            {cat}
-          </div>
+        {categories.map((cat) => (
+          <button
+            key={cat.slug}
+            onClick={() => setSelected(cat.slug === selected ? '' : cat.slug)}
+            className={`rounded-lg border p-4 text-center font-medium transition ${selected===cat.slug ? 'border-amber-400 bg-white/20' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+          >
+            {cat.label}
+          </button>
         ))}
       </section>
 
       {/* Подборка товаров на главной */}
       <section className="mt-12">
         <div className="mb-4 flex items-end justify-between">
-          <h2 className="text-2xl font-bold">Популярные товары</h2>
-          <Link className="text-amber-500 hover:text-amber-400 text-sm" href={`/${lng}/catalog`}>Смотреть все</Link>
+          <h2 className="text-2xl font-bold">{selected ? categories.find(c=>c.slug===selected)?.label : 'Популярные товары'}</h2>
+          <Link className="text-amber-500 hover:text-amber-400 text-sm" href={selected ? `/${lng}/catalog?category=${encodeURIComponent(selected)}` : `/${lng}/catalog`}>Смотреть все</Link>
         </div>
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

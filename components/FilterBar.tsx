@@ -82,19 +82,7 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
             })}
           </select>
         </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-xs font-medium text-gray-700">Бренд</label>
-          <select
-            value={query.brand || ''}
-            onChange={(e) => set('brand', e.target.value)}
-            className={`w-full rounded-md border bg-white px-3 py-2 text-sm ${query.brand ? 'border-amber-400 ring-2 ring-amber-200' : 'border-gray-200'}`}
-          >
-            <option value="">Все бренды</option>
-            {facets?.brands?.map((b) => (
-              <option key={b.name} value={b.name}>{b.name}{b.count ? ` (${b.count})` : ''}</option>
-            ))}
-          </select>
-        </div>
+        {/* Бренд скрыт по требованию: вкладка не отображается */}
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-gray-700">Цвет</label>
           <select
@@ -201,18 +189,7 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
           })}
         </select>
       </div>
-      <div>
-        <select
-          value={query.brand || ''}
-          onChange={(e) => set('brand', e.target.value)}
-          className={`w-full rounded-md border bg-white px-3 py-2 text-sm ${query.brand ? 'border-amber-400 ring-2 ring-amber-200' : 'border-gray-200'}`}
-        >
-          <option value="">Все бренды</option>
-          {facets?.brands?.map((b) => (
-            <option key={b.name} value={b.name}>{b.name}{b.count ? ` (${b.count})` : ''}</option>
-          ))}
-        </select>
-      </div>
+      {/* Бренд скрыт по требованию: вкладка не отображается */}
       <div>
         <select
           value={query.color || ''}
