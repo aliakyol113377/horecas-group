@@ -27,6 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/logo-horecas.png" />
         <link rel="apple-touch-icon" href="/logo-horecas.png" />
+        {/* Search engine verification metas (set in Vercel env) */}
+        {process.env.NEXT_PUBLIC_YANDEX_VERIFICATION ? (
+          <meta name="yandex-verification" content={process.env.NEXT_PUBLIC_YANDEX_VERIFICATION} />
+        ) : null}
+        {process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION ? (
+          <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION} />
+        ) : null}
         {/* Google AdSense global script (must be in <head> for verification). */}
         <script
           async
@@ -35,6 +42,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.className} min-h-screen`}>{children}</body>
+      {/* Basic Organization JSON-LD to help brand queries */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Horecas Group',
+            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://horecasgroup.site',
+            logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://horecasgroup.site'}/logo-horecas.png`,
+            contactPoint: [{
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              email: 'horecasgroup@gmail.com'
+            }]
+          })
+        }}
+      />
     </html>
   )
 }
