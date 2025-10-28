@@ -1,0 +1,8 @@
+# Authorized Digital Sellers (ads.txt)
+# Replace the placeholders after you connect your ad networks
+
+# Google AdSense
+# google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+
+# Yandex Advertising Network (РСЯ)
+# yandex.com, <your-partner-id>, DIRECT

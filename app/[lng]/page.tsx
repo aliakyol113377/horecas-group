@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import ProductCard from '../../components/ProductCard'
+import AdSense from '../../components/ads/AdSense'
 
 export const dynamic = 'force-dynamic'
 
@@ -93,6 +94,13 @@ export default function HomePage() {
           </div>
         )}
       </section>
+
+      {/* Баннерная реклама (включается через переменные окружения) */}
+      {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && process.env.NEXT_PUBLIC_ADSENSE_SLOT ? (
+        <div className="mt-12">
+          <AdSense slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT as string} responsive />
+        </div>
+      ) : null}
     </div>
   )
 }
