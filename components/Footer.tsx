@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="text-sm" />
         <div className="flex items-center gap-4 justify-start md:justify-end">
           <a className="hover:text-amber-700 transition" href="tel:+77763118110">+7 776 311 8110</a>
-          <a className="hover:text-amber-700 transition" href="mailto:info@horecas.kz">info@horecas.kz</a>
+          <a className="hover:text-amber-700 transition" href="mailto:horecasgroup@gmail.com">horecasgroup@gmail.com</a>
         </div>
         <div className="md:col-span-3 text-xs text-gray-400 mt-2">© {new Date().getFullYear()} Horecas Group. Все права защищены.</div>
       </div>

@@ -35,7 +35,7 @@ export default function ContactsPage() {
           <div className="space-y-2 text-sm text-gray-700">
             <div><span className="font-semibold">Адрес:</span> ул. Толеби 187, ТД "Тумар", 2 этаж, Алматы, Казахстан</div>
             <div><span className="font-semibold">Телефон:</span> <a className="text-amber-600" href="tel:+77763118110">+7 776 311 8110</a></div>
-            <div><span className="font-semibold">Email:</span> <a className="text-amber-600" href="mailto:info@horecas.group">info@horecas.group</a></div>
+            <div><span className="font-semibold">Email:</span> <a className="text-amber-600" href="mailto:horecasgroup@gmail.com">horecasgroup@gmail.com</a></div>
             <div>
               <a href="https://wa.me/77763118110?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E" target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-md bg-green-600 text-white px-3 py-1.5 hover:bg-green-700">Написать в WhatsApp</a>
             </div>
