@@ -93,6 +93,22 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
     )
   }
 
+  const renderMaterialChip = (name: string, count?: number) => {
+    const key = (name || '').toString().trim()
+    const isSelected = (query.material || '') === key
+    return (
+      <button
+        key={name}
+        onClick={() => set('material', isSelected ? '' : name)}
+        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition whitespace-nowrap ${isSelected ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50'}`}
+        aria-pressed={isSelected}
+        title={name}
+      >
+        <span>{name}{typeof count === 'number' && count > 0 ? ` (${count})` : ''}</span>
+      </button>
+    )
+  }
+
   if (vertical) {
     return (
       <div className="mt-2 space-y-4">
@@ -229,19 +245,20 @@ function FilterBar({ query, onChange, onReset, facets, vertical }: Props) {
         </select>
       </div>
       {/* Подкатегория удалена по требованию UX */}
-      <div>
-        <select
-          value={query.material || ''}
-          onChange={(e) => set('material', e.target.value)}
-          className={`w-full rounded-md border bg-white px-3 py-2 text-sm ${query.material ? 'border-amber-400 ring-2 ring-amber-200' : 'border-gray-200'}`}
-        >
-          <option value="">Все материалы</option>
+      <div className="col-span-2 lg:col-span-2">
+        <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap py-1">
+          <button
+            onClick={() => set('material', '')}
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm ${!query.material ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50'}`}
+          >
+            Все материалы
+          </button>
           {(Array.isArray(facets?.materials) ? facets?.materials : []).map((m: any) => {
             const name = typeof m === 'string' ? m : m.name
             const count = typeof m === 'string' ? undefined : m.count
-            return <option key={name} value={name}>{name}{count ? ` (${count})` : ''}</option>
+            return renderMaterialChip(name, count)
           })}
-        </select>
+        </div>
       </div>
       {/* Бренд скрыт по требованию: вкладка не отображается */}
       <div className="col-span-2 lg:col-span-2">
